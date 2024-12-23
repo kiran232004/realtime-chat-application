@@ -43,37 +43,37 @@ const Userinfo = () => {
   };
 
   return (
-    <div className="w-full md:w-[30vw] flex flex-col sm:flex-row items-center justify-between p-4 bg-gray-400 border-b border-white">
-  <div className="flex items-center gap-3">
-    <div className="w-10 md:w-12 h-10 md:h-12 rounded-full bg-white flex items-center justify-center text-black text-lg font-bold">
-      {currentUser?.name?.charAt(0).toUpperCase() || "U"}
+    <div className="w-full md:w-[30vw] flex flex-col sm:flex-row sm:w-[35vw]  items-center justify-between p-4 bg-[#1b263b] border-b border-white relative">
+    <div className="flex items-center gap-3 ">
+      <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black text-lg font-bold">
+        {currentUser?.name?.charAt(0).toUpperCase() || "U"}
+      </div>
+      <h2 className="text-white text-lg">{currentUser?.name || "User"}</h2>
     </div>
-    <h2 className="text-white text-lg">{currentUser?.name || "User"}</h2>
-  </div>
-  <div className="flex gap-4 items-center mt-3 sm:mt-0">
-    <img src="./video.png" alt="Video Call" className="w-5 h-5 cursor-pointer" />
-    <img src="./edit.png" alt="Edit" className="w-5 h-5 cursor-pointer" />
-    <div className="relative">
-      <img
-        src="./more.png"
-        alt="More"
-        className="w-5 h-5 cursor-pointer"
-        onClick={() => setShowDropdown((prev) => !prev)}
-      />
-      {showDropdown && (
-        <div className="absolute top-full right-0 bg-white shadow-lg rounded-md mt-2 w-40 text-sm">
-          <button
-            onClick={handleLogout}
-            className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
-          >
-            Logout
-          </button>
-        </div>
-      )}
+  
+    <div className="flex gap-4 items-center mt-3 sm:mt-0">
+      <img src="./video.png" alt="Video Call" className="w-5 h-5 cursor-pointer" />
+      <img src="./edit.png" alt="Edit" className="w-5 h-5 cursor-pointer" />
+      <div className="relative">
+        <img
+          src="./more.png"
+          alt="More"
+          className="w-5 h-5 cursor-pointer"
+          onClick={() => setShowDropdown((prev) => !prev)}
+        />
+        {showDropdown && (
+          <div className="absolute top-full right-0 bg-white shadow-lg rounded-md mt-2 w-40 text-sm">
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+            >
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   </div>
-</div>
-
   );
 };
 

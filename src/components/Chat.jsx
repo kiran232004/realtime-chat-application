@@ -11,7 +11,7 @@ const Chat = ({ chat }) => {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const { currentUser } = useUserStore();
-  const { chatId, user, isCurrentUserBlocked, isReceiverBlocked } = useChatStore();
+  const { chatId, user, changeChat } = useChatStore();
   const endRef = useRef(null);
 
   // Scroll to the latest message when chat data updates
@@ -52,16 +52,23 @@ const Chat = ({ chat }) => {
     }
   };
 
+  const handleBack = () => {
+    changeChat(null, null); // Reset chatId and user when going back to the ChatList
+  };
+
   return (
     <div className="flex flex-col border-l border-r border-gray-200 h-full">
       {/* Chat Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200  bg-gray-600 flex-wrap sm:flex-nowrap">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-[#0d1b2a] flex-wrap sm:flex-nowrap">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-gray-400 text-black text-lg font-bold">
+          <button onClick={handleBack} className="text-white">
+            <img src="/arrowUp.png" alt="Back" className="w-5 h-5" />
+          </button>
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-white text-black text-lg font-bold">
             {user?.username?.[0]?.toUpperCase() || "U"}
           </div>
           <div>
-            <span className="block text-base sm:text-lg font-bold truncate">
+            <span className="block text-base sm:text-lg font-bold truncate text-white">
               {user?.username}
             </span>
             <p className="text-xs sm:text-sm text-white">
@@ -88,7 +95,7 @@ const Chat = ({ chat }) => {
             <p
               className={`p-2 sm:p-4 rounded-lg ${
                 message.senderId === currentUser?.id
-                  ? "bg-blue-800 text-white"
+                  ? "bg-blue-300 text-black"
                   : "bg-gray-200 text-black"
               }`}
             >
@@ -104,39 +111,33 @@ const Chat = ({ chat }) => {
 
       {/* Chat Input */}
       <div
-        className={`flex items-center gap-2 sm:gap-4 p-2 sm:p-4 border-t border-gray-200 bg-gray-500 ${
+        className={`flex items-center gap-2 sm:gap-4 p-2 sm:p-4 border-t border-gray-200 bg-blue-300 ${
           chatId ? "block" : "hidden"
         }`}
-      > <div className="relative">
-      <img
-        src="/emoji.png"
-        alt="Emoji Picker"
-        className="w-5 h-5 sm:w-6 sm:h-6 cursor-pointer"
-        onClick={() => setOpen((prev) => !prev)}
-      />
-      {open && (
-        <div className="absolute bottom-10">
-          <EmojiPicker onEmojiClick={handleEmoji} />
+      >
+        <div className="relative">
+          <img
+            src="/emoji.png"
+            alt="Emoji Picker"
+            className="w-5 h-5 sm:w-6 sm:h-6 cursor-pointer"
+            onClick={() => setOpen((prev) => !prev)}
+          />
+          {open && (
+            <div className="absolute bottom-10">
+              <EmojiPicker onEmojiClick={handleEmoji} />
+            </div>
+          )}
         </div>
-      )}
-    </div>
         <input
           type="text"
-          placeholder={
-            isCurrentUserBlocked || isReceiverBlocked
-              ? "You cannot send a message"
-              : "Type a message..."
-          }
+          placeholder="Type a message..."
           value={text}
           onChange={(e) => setText(e.target.value)}
-          disabled={isCurrentUserBlocked || isReceiverBlocked}
-          className="flex-1 bg-white text-black p-2 sm:p-3 rounded-lg text-sm sm:text-base disabled:cursor-not-allowed"
+          className="flex-1 bg-white text-black p-2 sm:p-3 rounded-lg text-sm sm:text-base"
         />
-       
         <button
-          className="bg-orange-600 text-white px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base rounded-lg disabled:bg-blue-300"
+          className="bg-[#4361ee] text-white px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base rounded-lg"
           onClick={handleSend}
-          disabled={isCurrentUserBlocked || isReceiverBlocked}
         >
           Send
         </button>
@@ -146,3 +147,4 @@ const Chat = ({ chat }) => {
 };
 
 export default Chat;
+

@@ -84,13 +84,13 @@ const ChatList = () => {
   return (
     <div className="overflow-y-scroll w-full md:w-[30vw] h-screen scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
       <div className="flex flex-col sm:flex-row items-center gap-4 p-4">
-        <div className="flex items-center flex-1 bg-[rgba(17,25,40,0.5)] rounded-lg p-3">
+        <div className="flex items-center flex-1 bg-gray-300 rounded-lg p-3">
           <img src="./search.png" alt="" className="w-5 h-5" />
           <input
             type="text"
             placeholder="Search"
             onChange={(e) => setInput(e.target.value)}
-            className="bg-transparent border-none outline-none text-white flex-1 ml-3"
+            className="bg-transparent placeholder:text-black border-none outline-none text-white flex-1 ml-3"
           />
         </div>
         <img
@@ -105,7 +105,7 @@ const ChatList = () => {
         <div
           key={chat.chatId}
           onClick={() => handleSelect(chat)}
-          className={`flex flex-col sm:flex-row items-center gap-4 p-4 cursor-pointer border-b ${chat?.isSeen ? "bg-transparent" : "bg-blue-500"}`}
+          className={`flex flex-col sm:flex-row items-center gap-4 p-4 cursor-pointer border-b ${chat?.isSeen ? "bg-transparent" : "bg-blue-700"}`}
         >
           <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gray-400 text-black text-xl font-bold">
             {chat.user.username?.[0]?.toUpperCase()}
@@ -119,7 +119,7 @@ const ChatList = () => {
               e.stopPropagation();
               handleDelete(chat);
             }}
-            className="bg-orange-600 text-white px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base rounded-md "
+            className="bg-[#dc2f02] text-white px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base rounded-md "
           >
             Delete
           </button>
